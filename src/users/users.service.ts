@@ -1,5 +1,5 @@
 import { Injectable, HttpService } from '@nestjs/common';
-import { map, find } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { AxiosResponse } from 'axios';
 
 import { CreateUserDto } from './dto/create-user.dto';
