@@ -1,26 +1,41 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpService } from '@nestjs/common';
+import { map } from 'rxjs/operators';
+
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { BASE_EXTERNAL_API_URL } from 'src/utils/url';
 
 @Injectable()
 export class UsersService {
+  constructor(private httpService: HttpService) {}
+
   create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+    return this.httpService
+      .post(`${BASE_EXTERNAL_API_URL}/users`, createUserDto)
+      .pipe(map((response) => response.data));
   }
 
   findAll() {
-    return `This action returns all users`;
+    return this.httpService
+      .get(`${BASE_EXTERNAL_API_URL}/users`)
+      .pipe(map((response) => response.data));
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} user`;
+    return this.httpService
+      .get(`${BASE_EXTERNAL_API_URL}/users/${id}`)
+      .pipe(map((response) => response.data));
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+    return this.httpService
+      .patch(`${BASE_EXTERNAL_API_URL}/users/${id}`, updateUserDto)
+      .pipe(map((response) => response.data));
   }
 
   remove(id: number) {
-    return `This action removes a #${id} user`;
+    return this.httpService
+      .delete(`${BASE_EXTERNAL_API_URL}/users/${id}`)
+      .pipe(map((response) => response.data));
   }
 }
