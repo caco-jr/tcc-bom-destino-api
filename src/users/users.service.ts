@@ -34,10 +34,11 @@ export class UsersService {
       .pipe(map((response) => response.data));
   }
 
-  findOne(cpf: string): Observable<AxiosResponse<IUser | undefined>> {
+  findOne(cpf: string): Promise<IUser | undefined> {
     return this.httpService
       .get(`${BASE_EXTERNAL_API_URL}/users`)
-      .pipe(map((response) => response.data.find((item) => item.cpf === cpf)));
+      .pipe(map((response) => response.data.find((item) => item.cpf === cpf)))
+      .toPromise();
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
