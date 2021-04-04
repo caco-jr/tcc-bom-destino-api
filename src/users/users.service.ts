@@ -1,6 +1,5 @@
 import { Injectable, HttpService } from '@nestjs/common';
 import { map } from 'rxjs/operators';
-import { AxiosResponse } from 'axios';
 
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -34,11 +33,10 @@ export class UsersService {
       .pipe(map((response) => response.data));
   }
 
-  findOne(cpf: string): Promise<IUser | undefined> {
+  findOne(cpf: string): Observable<IUser | undefined> {
     return this.httpService
       .get(`${BASE_EXTERNAL_API_URL}/users`)
-      .pipe(map((response) => response.data.find((item) => item.cpf === cpf)))
-      .toPromise();
+      .pipe(map((response) => response.data.find((item) => item.cpf === cpf)));
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
