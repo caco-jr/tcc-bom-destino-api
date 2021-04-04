@@ -29,10 +29,7 @@ export class AppointmentsService {
 
   update(id: number, updateAppointmentDto: UpdateAppointmentDto) {
     return this.httpService
-      .patch(
-        `${BASE_EXTERNAL_API_URL}/appointments/${id}`,
-        updateAppointmentDto,
-      )
+      .put(`${BASE_EXTERNAL_API_URL}/appointments/${id}`, updateAppointmentDto)
       .pipe(map((response) => response.data));
   }
 
